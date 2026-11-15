@@ -18,6 +18,43 @@ in
     neovim
     # the font everything renders in
     nerd-fonts.hack
+    # migrated from Homebrew (2026-11)
+    act
+    awscli
+    binutils
+    cbc
+    colima
+    coreutils
+    docker          # client; daemon comes from colima
+    docker-buildx
+    docker-compose
+    duckdb
+    ffmpeg
+    fish
+    gh
+    git
+    grpcurl
+    helm
+    kind
+    kubernetes-cli  # kubectl
+    jdk17_headless  # was openjdk@17
+    mole
+    nats-cli        # was brew "nats"; not in nixpkgs -> move to brews
+    nats-server
+    nmap
+    node
+    osmium-tool
+    picotool        # not in nixpkgs -> move to brews
+    protobuf
+    pyenv
+    tmux
+    uhubctl
+    wireshark-cli   # was brew "wireshark" (tshark + CLI)
+    zlib
+    zsh
+    ngrok           # was cask "ngrok" (same CLI binary)
+    wezterm
+    claude-code     # not in nixpkgs -> move to casks
   ];
   fonts.fontconfig.enable = true;
   home.sessionVariables.EDITOR = "nvim";
