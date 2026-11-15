@@ -47,6 +47,8 @@ in
     picotool        # not in nixpkgs -> move to brews
     protobuf
     pyenv
+    tcl             # was brew tcl-tk
+    tk              # (the tk half of tcl-tk)
     tmux
     uhubctl
     wireshark-cli   # was brew "wireshark" (tshark + CLI)
