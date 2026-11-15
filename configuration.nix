@@ -34,12 +34,21 @@
     onActivation.cleanup = "zap";  # remove anything not listed here
     onActivation.autoUpdate = true;
     onActivation.extraFlags = [ "--force" ];
+    taps = [
+      { name = "rilldata/tap"; }
+    ];
     brews = [
       "herdr"
+      "rtk"
+      "rilldata/tap/rill"
+      "lsusb"
     ];
     casks = [
-      "wezterm"
-      "claude-code"
+      "iterm2"
+      "pearcleaner"
+      "pieces"
+      "pieces-os"
+      "wireshark-app"  # Wireshark GUI; CLI moved to nix
     ];
   };
 }
