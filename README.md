@@ -24,8 +24,11 @@ If you find a bug, please open a GitHub Issue using the bug report template.
 Running the switch builds:
 
 - System settings (dark mode, key repeat, dock, Finder, trackpad)
-- Homebrew apps (casks and CLI tools)
-- Nix user packages (ripgrep, fd, fzf, jq, lazygit, Neovim, Hack Nerd Font)
+- Nix user packages (ripgrep, fd, fzf, jq, lazygit, Neovim, Hack Nerd Font,
+  plus CLI tools migrated from Homebrew: docker/k8s stack, awscli, gh, ffmpeg,
+  tmux, and more - see `home.nix`)
+- Homebrew for what nixpkgs lacks (herdr, rtk, rill; casks iterm2,
+  pearcleaner, pieces, wireshark-app)
 - Shell (zsh, aliases, starship prompt)
 - Editor (Neovim config with the rose-pine moon theme)
 - Terminal (WezTerm config with the rose-pine moon theme and dimmed unfocused windows)
