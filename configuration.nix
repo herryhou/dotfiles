@@ -42,6 +42,7 @@
       "rtk"
       "rilldata/tap/rill"
       "lsusb"
+      "mole"  # nixpkgs mole 2.0.0 is marked broken; brew build works
     ];
     casks = [
       "iterm2"

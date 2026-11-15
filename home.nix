@@ -34,17 +34,16 @@ in
     gh
     git
     grpcurl
-    helm
+    kubernetes-helm  # was brew helm
     kind
-    kubernetes-cli  # kubectl
+    kubectl         # was brew kubernetes-cli
     jdk17_headless  # was openjdk@17
-    mole
-    nats-cli        # was brew "nats"; not in nixpkgs -> move to brews
+    natscli         # was brew "nats"
     nats-server
     nmap
-    node
+    nodejs          # was brew node
     osmium-tool
-    picotool        # not in nixpkgs -> move to brews
+    picotool
     protobuf
     pyenv
     tcl             # was brew tcl-tk
@@ -56,7 +55,7 @@ in
     zsh
     ngrok           # was cask "ngrok" (same CLI binary)
     wezterm
-    claude-code     # not in nixpkgs -> move to casks
+    claude-code
   ];
   fonts.fontconfig.enable = true;
   home.sessionVariables.EDITOR = "nvim";
