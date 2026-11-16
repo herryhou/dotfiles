@@ -27,6 +27,7 @@
   };
   nix-homebrew = {
     enable = true;
+    autoMigrate = true;  # adopt existing /opt/homebrew (one-time; keeps installed packages)
     inherit user;
   };
   homebrew = {
@@ -47,8 +48,6 @@
     casks = [
       "iterm2"
       "pearcleaner"
-      "pieces"
-      "pieces-os"
       "wireshark-app"  # Wireshark GUI; CLI moved to nix
     ];
   };
