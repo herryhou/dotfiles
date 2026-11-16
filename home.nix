@@ -30,7 +30,6 @@ in
     docker-compose
     duckdb
     ffmpeg
-    fish
     gh
     git
     grpcurl

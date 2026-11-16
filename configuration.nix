@@ -35,18 +35,13 @@
     onActivation.cleanup = "zap";  # remove anything not listed here
     onActivation.autoUpdate = true;
     onActivation.extraFlags = [ "--force" ];
-    taps = [
-      { name = "rilldata/tap"; }
-    ];
     brews = [
       "herdr"
       "rtk"
-      "rilldata/tap/rill"
       "lsusb"
       "mole"  # nixpkgs mole 2.0.0 is marked broken; brew build works
     ];
     casks = [
-      "iterm2"
       "pearcleaner"
       "wireshark-app"  # Wireshark GUI; CLI moved to nix
     ];
