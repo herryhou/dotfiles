@@ -90,6 +90,15 @@ in
     };
   };
 
+  # Spotlight never indexes /nix, and it resolves app symlinks to their target,
+  # so a symlinked WezTerm.app is invisible to it. Copy the bundle instead so
+  # it exists as a real, indexable directory in ~/Applications.
+  home.activation.installWeztermApp = config.lib.dag.entryAfter ["writeBoundary"] ''
+    mkdir -p "$HOME/Applications"
+    rm -rf "$HOME/Applications/WezTerm.app"
+    cp -R "${pkgs.wezterm}/Applications/WezTerm.app" "$HOME/Applications/WezTerm.app"
+  '';
+
   # Edit-in-place: the real file stays in my repo, ~/.config just points at it.
   home.file.".config/wezterm".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfiles}/home/.config/wezterm";
