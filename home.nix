@@ -49,6 +49,7 @@ in
     tk              # (the tk half of tcl-tk)
     tmux
     uhubctl
+    uv              # python project/venv manager (recreate moved project venvs)
     wireshark-cli   # was brew "wireshark" (tshark + CLI)
     zlib
     zsh
@@ -95,8 +96,12 @@ in
   # it exists as a real, indexable directory in ~/Applications.
   home.activation.installWeztermApp = config.lib.dag.entryAfter ["writeBoundary"] ''
     mkdir -p "$HOME/Applications"
+    # cp -R preserves the nix store's read-only modes, and BSD rm can't delete
+    # trees with read-only dirs - make it writable before replacing.
+    chmod -R u+w "$HOME/Applications/WezTerm.app" 2>/dev/null || true
     rm -rf "$HOME/Applications/WezTerm.app"
     cp -R "${pkgs.wezterm}/Applications/WezTerm.app" "$HOME/Applications/WezTerm.app"
+    chmod -R u+w "$HOME/Applications/WezTerm.app"
   '';
 
   # Edit-in-place: the real file stays in my repo, ~/.config just points at it.
