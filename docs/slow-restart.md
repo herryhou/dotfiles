@@ -4,7 +4,7 @@
 extensions disabled collapsed boot→desktop from ~45s to ~17s. Surfshark's
 extensions were gating loginwindow's authorization chain.
 
-**Still open: the post-login load storm** — ~495K log lines in the 2 minutes
+**Still open: the post-login load storm** - ~495K log lines in the 2 minutes
 after Finder even without Surfshark (568–620K with it, ~680K before the
 app-restore fix). Load ~76 at +1min, settled by +5min.
 
@@ -19,17 +19,17 @@ app-restore fix). Load ~76 at +1min, settled by +5min.
 
 loginwindow runs its login-authorization mechanism chain after FileVault
 unlock. With Surfshark's extensions active, a `ctkd` (CryptoTokenKit) request
-in that chain hangs ~18s mid-stall — ctkd is spawned by an `accessoryd`
+in that chain hangs ~18s mid-stall - ctkd is spawned by an `accessoryd`
 token-client request and joined by `mobileactivationd` (device-activation
-traffic, i.e. network) — and login proceeds the instant coreauthd cancels it.
+traffic, i.e. network) - and login proceeds the instant coreauthd cancels it.
 Three extensions were installed (team `YHUG37CKN8`): PacketTunnel-Dausos,
 PacketTunnel-WireGuard (network), and the Antivirus endpoint-security
 extension. A second A/B boot (22:44, network extensions + app autostart
 re-enabled, **Antivirus left disabled**) stayed fast at +16.1s with the tunnel
-running — so the **Antivirus endpoint-security extension** is the specific
+running - so the **Antivirus endpoint-security extension** is the specific
 gating component, not the VPN tunnels. Endpoint-security clients observe (and
 can delay) authorization events via `endpointsecurityd`; Surfshark's AV module
-— also the worst CPU-wake offender measured that morning at 1317 wakes/sec —
+- also the worst CPU-wake offender measured that morning at 1317 wakes/sec -
 does not answer promptly during early boot, and loginwindow's auth chain waits
 out a ~30s timeout before proceeding.
 
@@ -44,18 +44,18 @@ do not load at boot. Re-enable the toggles to restore.
 
 ### Final Surfshark config (resolved 2026-11-18)
 
-- App: stays in Login Items, auto-starts — normal usage.
-- Network Extensions (Dausos + WireGuard toggles): **enabled** — VPN works.
+- App: stays in Login Items, auto-starts - normal usage.
+- Network Extensions (Dausos + WireGuard toggles): **enabled** - VPN works.
 - Endpoint Security Extensions (Antivirus toggle): **leave OFF**. It gates
   login by ~30s and burns CPU wakes; macOS's built-in XProtect/Gatekeeper
   cover the malware-defense role.
 - If boots get slow again after a Surfshark update, check first whether the
   Antivirus toggle re-enabled itself (updates can re-prompt for the ES
   extension).
-- Worth reporting Surfshark v4.30.2 as regressing login on macOS 27.2 — the
+- Worth reporting Surfshark v4.30.2 as regressing login on macOS 27.2 - the
   30s timeout signature is visible in every gated boot's unified log.
 
-## The pre-Finder stall anatomy (with Surfshark active — for reference)
+## The pre-Finder stall anatomy (with Surfshark active - for reference)
 
 | Offset | Event |
 |---|---|
@@ -113,7 +113,7 @@ caused by those scans. Run `uptime` first, or sample
 - `/nix` decryption + Spotlight: `FileVault: No`, `mdutil -s /nix` →
   `Indexing disabled.`. (storagekitd logging `Encrypted: Yes` early in boot is
   stale cache; `diskutil info` is authoritative.)
-- Shutdown: teardown ends ~17s before the next kernel boot — fast.
+- Shutdown: teardown ends ~17s before the next kernel boot - fast.
 
 ## Re-measuring a slow boot
 

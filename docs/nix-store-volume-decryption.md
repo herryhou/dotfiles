@@ -11,8 +11,8 @@ Mounting the store never requires the `nix` binary inside it:
 - `/etc/synthetic.conf` creates the `/nix` mountpoint
 - `/etc/fstab` maps the volume UUID to `/nix` (`noauto`, so boot never blocks on it)
 - `/Library/LaunchDaemons/systems.determinate.nix-store.plist` runs
-  `/usr/local/bin/determinate-nixd init` at boot — a binary on the Data volume,
-  outside the store — which unlocks and mounts the volume
+  `/usr/local/bin/determinate-nixd init` at boot - a binary on the Data volume,
+  outside the store - which unlocks and mounts the volume
 - Store-resident daemons wait for the mount first (the hook runs
   `/bin/wait4path /nix/nix-installer && /nix/nix-installer repair`)
 
@@ -39,19 +39,19 @@ sudo diskutil apfs decryptVolume disk3s7 \
 
 Verify: `diskutil info disk3s7` shows `FileVault: No` and
 `diskutil apfs listCryptoUsers disk3s7` reports no cryptographic users. After
-this, boots mount `/nix` silently — no dialog, no typed passphrase.
+this, boots mount `/nix` silently - no dialog, no typed passphrase.
 
 Notes:
 
 - The disk identifier (`disk3s7` here) can differ; find it with
   `diskutil apfs list`.
 - The `"Nix Store"` System Keychain entry is unused now that the volume is
-  decrypted, and since 2026-11-18 `determinate-nixd init` is disabled anyway —
+  decrypted, and since 2026-11-18 `determinate-nixd init` is disabled anyway -
   fstab auto-mounts `/nix` (`noauto` removed; see `docs/slow-restart.md`).
   Still, do not delete the entry: if you ever roll back to the daemon-managed
   setup, `determinate-nixd init` looks it up on every boot and fails outright
   (`Keychain error: Not found`) when it is missing. If the entry was already
-  deleted, recreate it with a placeholder value — the value is never tried
+  deleted, recreate it with a placeholder value - the value is never tried
   against the now-unencrypted volume:
 
   ```bash
@@ -67,8 +67,8 @@ Notes:
 
 ## Keep Spotlight off `/nix` (slow post-login boots)
 
-Once `/nix` mounts at every boot, Spotlight crawls it — tens of thousands of
-store-path files — and pins `mds_stores` at ~100% CPU for minutes after login.
+Once `/nix` mounts at every boot, Spotlight crawls it - tens of thousands of
+store-path files - and pins `mds_stores` at ~100% CPU for minutes after login.
 Measured on 2026-11-18: 14s to the login window, then load average 33 by +3
 min with `mds_stores` at 117% CPU. Store paths are content hashes, so indexing
 the volume is pure waste.
