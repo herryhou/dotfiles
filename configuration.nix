@@ -24,6 +24,14 @@
     finder.FXPreferredViewStyle = "Nlsv";  # list view by default
     finder.CreateDesktop = false;          # clean desktop
     trackpad.Clicking = true;              # tap to click
+    # Restart comes back to a clean desktop. Without this, macOS relaunches
+    # every app that was open (PersistentAppsSupport), causing a multi-minute
+    # post-login load storm. See docs/slow-restart.md.
+    # Both domains are needed: the system one governs loginwindow's own
+    # decision, the user one is the per-session "reopen windows" state that
+    # loginwindow consults for the logged-in user.
+    CustomSystemPreferences."com.apple.loginwindow".TALLogoutSavesState = false;
+    CustomUserPreferences."com.apple.loginwindow".TALLogoutSavesState = false;
   };
   nix-homebrew = {
     enable = true;
