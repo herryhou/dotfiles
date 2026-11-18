@@ -3,5 +3,6 @@
   "statusLine": {
     "type": "command",
     "command": "input=$(cat); cwd=$(echo \"$input\" | jq -r '.workspace.current_dir'); branch=$(cd \"$cwd\" 2>/dev/null && git --no-optional-locks rev-parse --abbrev-ref HEAD 2>/dev/null); used=$(echo \"$input\" | jq -r '.context_window.used_percentage // empty'); five=$(echo \"$input\" | jq -r '.rate_limits.five_hour.used_percentage // empty'); week=$(echo \"$input\" | jq -r '.rate_limits.seven_day.used_percentage // empty'); printf \"\\033[32m%s:\\033[33;1m%s\\033[m\" \"$(hostname -s)\" \"$(basename \"$cwd\")\"; [ -n \"$branch\" ] && printf \" \\033[36m%s\\033[m\" \"$branch\"; [ -n \"$used\" ] && printf \" \\033[35mctx %.0f%%\\033[m\" \"$used\"; q=\"\"; [ -n \"$five\" ] && q=\"5h:$(printf '%.0f' \"$five\")%\"; [ -n \"$week\" ] && q=\"$q 7d:$(printf '%.0f' \"$week\")%\"; [ -n \"$q\" ] && printf \" \\033[34m%s\\033[m\" \"$q\"; echo"
-  }
+  },
+  "hooks": {"SessionStart":[{"matcher":"^(startup|resume|clear|compact|fork)$","hooks":[{"type":"command","command":"bash '/Users/herry/.claude/hooks/herdr-agent-state.sh' session","timeout":10}]}]}
 }
